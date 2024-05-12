@@ -1,0 +1,77 @@
+    <!-- Page Banner Section Start-->
+    <div class="page-banner-section section" style="background-image: url(../../assets/img/bg/page-banner.jpg)">
+        <div class="container">
+            <div class="row">
+                
+                <!-- Page Title Start -->
+                <div class="page-title text-center col">
+                    <h1>MY ACCOUNT</h1>
+                </div><!-- Page Title End -->
+                
+            </div>
+        </div>
+    </div><!-- Page Banner Section End-->
+    
+       
+    <!-- Cart Section Start-->
+    <div class="cart-section section pt-90 pb-90">
+        <div class="container">
+            <div class="row" *ngIf="showForm">
+                <div class="cart-action col-lg-4 col-md-6 col-12 mb-30">
+                    <button class="button" (click)="showAddProductForm()">Product List</button>
+                </div>
+                <div class="col-12">
+                    <!-- Show the form component based on a boolean flag -->
+                    <app-add-product-form (formSubmitted)="handleFormSubmit()"></app-add-product-form>
+                </div>
+            </div>
+            <div class="row" *ngIf="!showForm">
+                <!-- Cart Action -->
+                <div class="cart-action col-lg-4 col-md-6 col-12 mb-30">
+                    <button class="button" (click)="showAddProductForm()">Add Product</button>
+                </div>
+                <div class="col-12">
+                   
+                    <div class="table-responsive mb-30" *ngIf="products">
+                        <table class="table cart-table text-center">
+                            
+                            <!-- Table Head -->
+                            <thead>
+                                <tr>
+                                    <th class="number">#</th>
+                                    <th class="image">image</th>
+                                    <th class="name">product name</th>
+                                    <th class="price">price</th>
+                                    <th class="edit">edit</th>
+                                    <th class="remove">remove</th>
+                                </tr>
+                            </thead>
+                            
+                            <!-- Table Body -->
+                            <tbody>
+                                <tr *ngFor="let product of products; let i = index">
+                                    <td><span class="cart-number">{{ calculateIndex(i) }}</span></td>
+                                    <td><a href="#" class="cart-pro-image"><img src="{{apiUrl}}/uploads/{{product.product_image}}" alt="" /></a></td>
+                                    <!-- <td><a href="#" class="cart-pro-image"><img src="../../assets/img/product/{{product.product_image}}" alt="" /></a></td> -->
+                                    <td><a href="#" class="cart-pro-title">{{product.product_name}}</a></td>
+                                    <td><p class="cart-pro-price">{{product.product_price}}</p></td>
+                                    <td><button class="cart-pro-edit" (click)="showAddProductForm(product.product_id)"><i class="fa fa-pencil"></i></button></td>
+                                    <td><button class="cart-pro-remove" (click)="deleteProduct(product.product_id)"><i class="fa fa-trash-o"></i></button></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+
+                    <!-- Pagination Start -->
+                    <div class="pagination col-12 mt-20">
+                        <ul *ngIf="totalPages > 1">
+                            <li class="arrows"><a href="#" (click)="prevPage()"><i class="fa fa-angle-left"></i></a></li>
+                            <li *ngFor="let pageNum of getPageNumbers()" [ngClass]="{ 'active': currentPage === pageNum }"><a href="#" (click)="goToPage(pageNum)">{{ pageNum }}</a></li>
+                            <li class="arrows"><a href="#" (click)="nextPage()"><i class="fa fa-angle-right"></i></a></li>
+                        </ul>
+                    </div><!-- Pagination End -->
+                    
+                </div>
+            </div>
+        </div>
+    </div><!-- Cart Section End-->

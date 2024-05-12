@@ -1,0 +1,98 @@
+  <!-- Page Banner Section Start-->
+  <div class="page-banner-section section" style="background-image: url(../assets/img/bg/page-banner.jpg)">
+    <div class="container">
+        <div class="row">
+            
+            <!-- Page Title Start -->
+            <div class="page-title text-center col">
+                <h1>shop page</h1>
+            </div><!-- Page Title End -->
+            
+        </div>
+    </div>
+</div><!-- Page Banner Section End-->
+
+   
+<!-- Product Section Start-->
+<div class="product-section section pt-120 pb-120">
+    <div class="container">
+
+      <form action="#" class="billing-form checkout-form">
+        <div class="row">
+          <div class="col-lg-6 col-12 mb-30">
+            <div class="row">
+              <div class="col-md-6 col-12 mb-20">
+                <select (change)="onSortBy($event)">
+                  <option value="">Select Option</option>
+                  <option value="product_name">Sort by Name</option>
+                  <option value="product_price">Sort by Price</option>
+                </select>
+              </div>
+              <div class="col-md-6 col-12 mb-20">
+                <select (change)="onSortOrder($event)">
+                  <option value="">Select Option</option>
+                  <option value="DESC">Sort Descending</option>
+                  <option value="ASC">Sort Ascending</option>
+                </select>
+              </div>
+            </div>
+          </div>
+          <div class="col-lg-6 col-12 mb-30"></div>
+        </div>
+      </form>        
+      
+      <!-- Product Wrapper Start-->
+      <div class="row" *ngIf="products">
+          
+          <!-- Product Start-->
+          <div *ngFor="let product of products" class="col-lg-4 col-md-6 col-12 mb-60">
+              
+              <div class="product">
+
+                  <!-- Image Wrapper -->
+                  <div class="image">
+                      <!-- Image -->
+                      <a href="product-details.html" class="img"><img src="{{apiUrl}}/uploads/{{product.product_image}}" alt="Product"></a>
+                      <!-- Wishlist -->
+                      <a href="#" class="wishlist"><i class="fa fa-heart-o"></i></a>
+                      <!-- Label -->
+                  </div>
+                  
+                  <!-- Content -->
+                  <div class="content">
+                      
+                      <!-- Head Content -->
+                      <div class="head fix">
+                          
+                          <!-- Title & Category -->
+                          <div class="title-category float-left">
+                              <h5 class="title"><a href="product-details.html">{{product.product_name}}</a></h5>
+                          </div>
+                          <!-- Price -->
+                          <div class="price float-right">
+                              <span class="new">{{product.product_price}}</span>
+                              <!-- Old Price Mockup If Need -->
+                              <!-- <span class="old">$46</span> -->
+                          </div>
+                          
+                      </div>
+                      
+                  </div>
+
+              </div>
+              
+          </div><!-- Product End-->
+
+          <!-- Pagination Start -->
+          <div class="pagination col-12 mt-20">
+            <ul *ngIf="totalPages > 1">
+              <li class="arrows"><a href="#" (click)="prevPage()"><i class="fa fa-angle-left"></i></a></li>
+                <li *ngFor="let pageNum of getPageNumbers()" [ngClass]="{ 'active': currentPage === pageNum }"><a href="#" (click)="goToPage(pageNum)">{{ pageNum }}</a></li>
+                <li class="arrows"><a href="#" (click)="nextPage()"><i class="fa fa-angle-right"></i></a></li>
+            </ul>
+          </div><!-- Pagination End -->
+          
+      </div><!-- Product Wrapper End-->
+        
+    </div>
+</div><!-- Product Section End-->
